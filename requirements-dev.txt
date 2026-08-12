@@ -1,0 +1,8 @@
+-r requirements.txt
+pytest==9.1.1
+pytest-asyncio==1.4.0
+fakeredis==2.37.0
+ruff==0.16.1
+pyright==1.1.411
+watchfiles==1.2.0
+

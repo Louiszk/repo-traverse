@@ -1,0 +1,39 @@
+services:
+  redis:
+    ports:
+      - "6379:6379"
+
+  backend:
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --reload-dir app
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/app:/app/app
+
+  worker:
+    command: watchfiles "celery -A app.celery_app:celery_app worker --loglevel=debug --concurrency=1" /app/app
+    volumes:
+      - ./backend/app:/app/app
+
+  beat:
+    command: watchfiles "celery -A app.celery_app:celery_app beat --loglevel=debug" /app/app
+    volumes:
+      - ./backend/app:/app/app
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: dev
+    command: sh -c "npm i --no-audit && npm run dev -- --host 0.0.0.0"
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+  nginx:
+    ports:
+      - "80:8080"
+    volumes:
+      - ./nginx/nginx.dev.conf:/etc/nginx/nginx.conf:ro

@@ -1,0 +1,101 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  backend:
+    name: Backend Lint, Typecheck & Tests
+    runs-on: ubuntu-latest
+    env:
+      SERVICE_ROLE: api
+      ENVIRONMENT: development
+      OPENAI_API_KEY: ci-placeholder-openai-key
+      GITHUB_PAT: ci-placeholder-github-pat
+      REDIS_PASSWORD: ci-placeholder-redis-password
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements-dev.txt
+
+    - name: Run Linter (Ruff)
+      run: |
+        ruff check .
+
+    - name: Run Typecheck (Pyright)
+      run: |
+        pyright
+
+    - name: Run Pytest Suite
+      run: |
+        pytest backend/tests
+
+  compose-smoke-test:
+    name: Docker Compose Validation
+    runs-on: ubuntu-latest
+    env:
+      REDIS_PASSWORD: changeme_in_ci
+      BACKEND_IMAGE: repotraverse-backend:ci
+      FRONTEND_IMAGE: repotraverse-frontend:ci
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Create scoped env files
+      run: |
+        cp .env.shared.example .env.shared
+        cp .env.backend.example .env.backend
+        cp .env.frontend.example .env.frontend
+
+    - name: Validate Production Docker Compose Config
+      run: |
+        docker compose --env-file .env.shared config --quiet
+
+    - name: Validate Development Override Docker Compose Config
+      run: |
+        docker compose --env-file .env.shared -f docker-compose.yml -f docker-compose.override.example.yml config --quiet
+
+  frontend:
+    name: Frontend Lint, Typecheck, Test & Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Node.js 22
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+        cache: 'npm'
+        cache-dependency-path: frontend/package.json
+
+    - name: Install Dependencies
+      run: npm install
+      working-directory: frontend
+
+    - name: Run ESLint
+      run: npm run lint
+      working-directory: frontend
+
+    - name: Run TypeScript Typecheck
+      run: npm run typecheck
+      working-directory: frontend
+
+    - name: Run Vitest Suite
+      run: npm run test
+      working-directory: frontend
+
+    - name: Build Frontend
+      run: npm run build
+      working-directory: frontend

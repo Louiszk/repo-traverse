@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  code, pre {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Dark Theme Fills - Fixed Dark Sienna Charcoal (Option 1) */
+html.dark body {
+  background-color: #1A1614;
+  color: #F5EFEB;
+}
+html.dark .panel-bg {
+  background-color: #241E1A;
+  border-color: #3C302B;
+}
+html.dark .card-bg {
+  background-color: #2D2521;
+  border-color: #4A3A34;
+}
+html.dark .subtle-bg {
+  background-color: #120F0D;
+  border-color: #2D2521;
+}
+html.dark .accent-btn {
+  background-color: #B27A66;
+  color: #1A1614;
+}
+html.dark .accent-btn:hover {
+  background-color: #D5A898;
+}
+
+/* Light Theme Fills - Soft Dusty Rose Terracotta (#CD9588) & Dark Font (Option 3) */
+html:not(.dark) body {
+  background-color: #F9F4F5;
+  color: #2B1B1E;
+}
+html:not(.dark) .panel-bg {
+  background-color: #FFFFFF;
+  border-color: #E5D5D8;
+  color: #2B1B1E;
+}
+html:not(.dark) .card-bg {
+  background-color: #F0E5E7;
+  border-color: #DCC9CD;
+  color: #2B1B1E;
+}
+html:not(.dark) .subtle-bg {
+  background-color: #FCF8F9;
+  border-color: #E5D5D8;
+  color: #2B1B1E;
+}
+html:not(.dark) .accent-btn {
+  background-color: #CD9588;
+  color: #2B1B1E;
+}
+html:not(.dark) .accent-btn:hover {
+  background-color: #DDA79A;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #B27A66;
+  border-radius: 4px;
+}
+html:not(.dark) ::-webkit-scrollbar-thumb {
+  background: #CD9588;
+}
+
+/* Glassmorphism utilities compatible with themes */
+.glass-panel {
+  @apply panel-bg;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glass-card {
+  @apply card-bg;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* 3x3 Grid Perimeter Spinner Animation */
+@keyframes grid-chase {
+  0%, 100% {
+    background-color: rgba(60, 48, 43, 0.4);
+    border-color: rgba(74, 58, 52, 0.25);
+    box-shadow: none;
+    opacity: 0.2;
+    transform: scale(0.9);
+  }
+  12.5% {
+    background-color: rgba(178, 122, 102, 0.85);
+    border-color: rgba(213, 168, 152, 0.9);
+    box-shadow: 0 0 4px rgba(178, 122, 102, 0.4);
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+  25% {
+    background-color: rgba(142, 91, 75, 0.7);
+    border-color: rgba(205, 149, 136, 0.7);
+    box-shadow: 0 0 2px rgba(142, 91, 75, 0.25);
+    opacity: 0.5;
+    transform: scale(0.95);
+  }
+}
+
+.animate-grid-chase {
+  animation: grid-chase 1.2s linear infinite;
+}
+
+/* Prevent white browser autofill background on dark mode inputs */
+html.dark input:-webkit-autofill,
+html.dark input:-webkit-autofill:hover, 
+html.dark input:-webkit-autofill:focus, 
+html.dark input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #120F0D inset !important;
+  -webkit-text-fill-color: #F5EFEB !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+html:not(.dark) input:-webkit-autofill,
+html:not(.dark) input:-webkit-autofill:hover, 
+html:not(.dark) input:-webkit-autofill:focus, 
+html:not(.dark) input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #FCF8F9 inset !important;
+  -webkit-text-fill-color: #2B1B1E !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+
+

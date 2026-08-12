@@ -1,0 +1,56 @@
+# Version Control
+.git
+.gitignore
+.github
+
+# Python Virtual Environments & Caches
+repovenv/
+venv/
+env/
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Frontend Subdirectory & Node Modules
+frontend/
+node_modules/
+
+
+# IDE & Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS & Logs
+.DS_Store
+Thumbs.db
+*.log
+
+# Docker
+docker-compose*.yml
+
+# Environment Variables
+.env*
+
+# Databases & Media
+*.sqlite3
+*.sqlite3-journal
+media/
+
+# Certificates
+nginx/certs/
+nginx/certbot/
+
+# Gemini
+.gemini
+GEMINI.md
+*ideas.md
+*plan.md
+*log.md
