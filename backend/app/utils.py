@@ -271,7 +271,7 @@ def execute_tool_calls(
             content = str(res) if res is not None else f"Tool '{name}' executed successfully."
             sanitized_content = sanitize_string(content)
             tool_messages.append(ToolMessage(content=sanitized_content, tool_call_id=call_id, name=name))
-        except Exception as exc:
+        except Exception:
             logger.exception("Error executing tool '%s'", name)
             err_msg = f"Error executing tool '{name}'. Please try again."
             tool_messages.append(

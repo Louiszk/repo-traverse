@@ -484,7 +484,6 @@ class RedisSaver(BaseCheckpointSaver[str]):
         if limit is not None and limit <= 0:
             return
 
-        configurable = (config or {}).get("configurable") or {}
         config_checkpoint_id = get_checkpoint_id(config) if config else None
         before_checkpoint_id = get_checkpoint_id(before) if before else None
 
