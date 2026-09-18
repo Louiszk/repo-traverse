@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Rounded Container -->
+  <rect width="32" height="32" rx="7" fill="#1A1614"/>
+  <rect x="0.75" y="0.75" width="30.5" height="30.5" rx="6.25" stroke="#3C302B" stroke-width="1.5" fill="none"/>
+
+  <!-- Traversal shortcut edge -->
+  <line x1="9" y1="21" x2="23" y2="14" stroke="#D5A898" stroke-width="1.2" stroke-dasharray="2 1.5" stroke-opacity="0.6"/>
+
+  <!-- Graph structural edges -->
+  <line x1="9" y1="21" x2="16" y2="8" stroke="#B27A66" stroke-width="2.2" stroke-linecap="round"/>
+  <line x1="16" y1="8" x2="23" y2="14" stroke="#DDA79A" stroke-width="2.2" stroke-linecap="round"/>
+  <line x1="23" y1="14" x2="18" y2="24" stroke="#B27A66" stroke-width="2" stroke-linecap="round"/>
+  <line x1="9" y1="21" x2="18" y2="24" stroke="#6C4032" stroke-width="1.8" stroke-linecap="round"/>
+
+  <!-- Knowledge Graph Nodes -->
+  <circle cx="9" cy="21" r="2.8" fill="#8E5B4B" stroke="#DDA79A" stroke-width="1.4"/>
+  <circle cx="16" cy="8" r="3" fill="#B27A66" stroke="#E6BCB2" stroke-width="1.4"/>
+  <circle cx="18" cy="24" r="2.5" fill="#6C4032" stroke="#B27A66" stroke-width="1.4"/>
+
+  <!-- Active Agent / Traversal Focus Node -->
+  <circle cx="23" cy="14" r="4.5" fill="#DDA79A" fill-opacity="0.25"/>
+  <circle cx="23" cy="14" r="3.2" fill="#DDA79A" stroke="#FFF5F2" stroke-width="1.5"/>
+</svg>
